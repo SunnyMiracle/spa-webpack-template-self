@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React from 'react';
+import style from './index.less';
 
 class Title extends React.Component {
 
      render() {
         return (
-            <div>{this.props.title}</div>
+            <div className={style.title}>{this.props.title}</div>
         )
     }
 }

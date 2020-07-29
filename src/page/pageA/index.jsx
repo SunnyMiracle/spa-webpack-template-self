@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Title from "./component/title";
 
 class A extends React.Component {
