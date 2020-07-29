@@ -10,7 +10,7 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-cheap-module-source-map',
     cache: true,
-    entry: '../src/main.jsx',
+    entry: './main.jsx',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].[chunkhash].js',
