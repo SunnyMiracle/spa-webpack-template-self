@@ -1,0 +1,62 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "debug": false,
+        "modules": "commonjs",
+        "targets": {
+          "uglify": false,
+          "browsers": [
+            "> 1%",
+            "last 2 versions",
+            "Android >= 3.2",
+            "Firefox >= 20",
+            "iOS 7"
+          ]
+        },
+        "useBuiltIns": false
+      }
+    ],
+    "react",
+    "flow",
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "flow-react-proptypes",
+    "transform-flow-comments",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    [
+      "import",
+      [
+        {
+          "libraryName": "antd"
+        },
+        {
+          "libraryName": "lodash",
+          "libraryDirectory": "",
+          "camel2DashComponentName": false
+        }
+      ]
+    ]
+  ],
+  "env": {
+    "production": {
+      "presets": [
+        // Optimize React code for the production build
+        // https://github.com/thejameskyle/babel-react-optimize
+        "react-optimize"
+      ],
+      "plugins": [
+        // Adds component stack to warning messages
+        // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
+        "transform-react-jsx-source",
+        // Adds __self attribute to JSX which React will use for some warnings
+        // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
+        "transform-react-jsx-self"
+      ]
+    }
+  }
+}
