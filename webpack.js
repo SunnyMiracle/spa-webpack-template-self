@@ -13,8 +13,7 @@ module.exports = {
     entry: './main.jsx',
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name].[chunkhash].js',
-        chunkFilename: '[name].[chunkhash].js'
+        filename: '[name].js',
     },
     module: {
         rules: [

@@ -5,7 +5,7 @@ class A extends React.Component {
      render() {
         return (
             <div>
-                <Title title="Test A page title"/>
+                <Title title="Test A page title blue"/>
             </div>
         );
     }
