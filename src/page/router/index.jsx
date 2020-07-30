@@ -19,7 +19,7 @@ export default function (props) {
 
     return (
         <Switch>
-            <Route path="/" component={pageALoader}/>
+            <Route path="/a" component={pageALoader}/>
             <Route path="/b" component={pageBLoader}/>
         </Switch>
     );

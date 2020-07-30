@@ -15,6 +15,9 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js',
     },
+    devServer: {
+        open: true,
+    },
     module: {
         rules: [
             {
@@ -60,9 +63,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/index.ejs'),
             filename: "index.html",
-            title: "Webpack App"
+            title: "Webpack App",
+            cache: true,
         }),
-        new InlineManifestWebpackPlugin(),
         // new BundleAnalyzerPlugin(),
         new MiniCssExtractPlugin({
             // MiniCssExtractPlugin 不支持多实例，antd 和 main 样式，均抽取为同一个文件
@@ -70,7 +73,8 @@ module.exports = {
             filename: '[name].[contenthash].css',
             chunkFilename: '[name].[contenthash].css'
         }),
-        new webpack.HashedModuleIdsPlugin(),
+        // new InlineManifestWebpackPlugin('runtime'),
+        // new webpack.HashedModuleIdsPlugin(),
     ],
     optimization: {
         splitChunks: {
@@ -108,7 +112,7 @@ module.exports = {
                     reuseExistingChunk: true,
                 }
             }
-        }
+        }, runtimeChunk: true
     },
     context: path.resolve(__dirname, './src'),
     resolve: {
