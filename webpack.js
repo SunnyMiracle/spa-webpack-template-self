@@ -75,6 +75,12 @@ module.exports = {
         }),
         // new InlineManifestWebpackPlugin('runtime'),
         // new webpack.HashedModuleIdsPlugin(),
+        new webpack.NamedChunksPlugin((chunk) => {
+            if (chunk.name === 'main') {
+                console.log(chunk.getModulesIdent());
+            }
+            return chunk.name;
+        }),
     ],
     optimization: {
         splitChunks: {
