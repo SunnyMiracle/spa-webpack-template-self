@@ -13,7 +13,7 @@ module.exports = {
     entry: './main.jsx',
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name].js',
+        filename: '[name].[chunkhash].js',
     },
     devServer: {
         open: true,
@@ -97,8 +97,7 @@ module.exports = {
                 },
                 // 增加一个按需加载的入口页，下边chunks字段的可选值有 all initial async这三个可选值，
                 // initial 的意思为初始化入口页的时候就需要加载进来的数据。
-                // 这个配置可以保证 antd-mobile lodash 等库使用了那些加载哪些。（配合.babelrc .babelrc.dev使用）
-                // 之前有闪屏问题，待确认。不知道是否存在。如果存在的话还需要统一加载近vendor
+                // 这个配置可以保证 antd lodash 等库使用了那些加载哪些。
                 vendorAsync: {
                     test: /[\\/]node_modules[\\/]/,
                     reuseExistingChunk: true,
