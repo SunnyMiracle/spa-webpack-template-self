@@ -152,7 +152,7 @@ exports.default = function (props) {
     });
     var pageBLoader = (0, _reactLoadable2.default)({
         loader: function loader() {
-            return Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e(1)]).then(__webpack_require__.t.bind(null, /*! ../pageB */ "./page/pageB/index.jsx", 7));
+            return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.t.bind(null, /*! ../pageB */ "./page/pageB/index.jsx", 7));
         },
         loading: _loading2.default,
         delay: 100
