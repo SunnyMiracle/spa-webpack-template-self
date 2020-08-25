@@ -1,8 +1,10 @@
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
@@ -34,6 +36,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
+                exclude: [path.resolve(__dirname, './src/styles')],
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
@@ -48,15 +51,33 @@ module.exports = {
                 ],
             },
             {
-                test: /\.css$/,
-                include: path.resolve(__dirname, './src'),
+                test: /\.less$/,
+                include: [path.resolve(__dirname, './src/styles')],
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                     },
-                ]
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                javascriptEnabled: true,
+                            },
+                        }
+                    },
+                ],
             },
+            // {
+            //     test: /\.css$/,
+            //     include: path.resolve(__dirname, './src'),
+            //     use: [
+            //         MiniCssExtractPlugin.loader,
+            //         {
+            //             loader: 'css-loader',
+            //         },
+            //     ]
+            // },
         ]
     },
     plugins: [
@@ -65,6 +86,7 @@ module.exports = {
             filename: "index.html",
             title: "Webpack App",
             cache: true,
+            excludeChunks: ['']
         }),
         // new BundleAnalyzerPlugin(),
         new MiniCssExtractPlugin({
@@ -73,13 +95,17 @@ module.exports = {
             filename: '[name].[contenthash].css',
             chunkFilename: '[name].[contenthash].css'
         }),
-        // new InlineManifestWebpackPlugin('runtime'),
-        // new webpack.HashedModuleIdsPlugin(),
+        new ManifestPlugin(),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.NamedModulesPlugin(),
         new webpack.NamedChunksPlugin((chunk) => {
-            if (chunk.name === 'main') {
-                console.log(chunk.getModulesIdent());
+            if (chunk.name) {
+                return chunk.name;
             }
-            return chunk.name;
+            const modulesIds = chunk.getModulesIdent();
+            const hash = crypto.createHash('sha256');
+            hash.update(modulesIds);
+            return `chunk-${hash.digest('hex').substr(0, 8)}`;
         }),
     ],
     optimization: {
@@ -115,7 +141,7 @@ module.exports = {
                     minChunks: 1,
                     minSize: 10,
                     reuseExistingChunk: true,
-                }
+                },
             }
         }, runtimeChunk: true
     },

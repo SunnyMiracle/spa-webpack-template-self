@@ -5,6 +5,7 @@ class A extends React.Component {
         return (
             <div>
                 PageB
+                ssss
             </div>
         );
     }
